@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.ui import WebDriverWait
 import test_data
 
@@ -32,4 +33,9 @@ class TestClass:
         self.driver.forward()
         self.driver.refresh()
 
-        
+    def test_dropdown_admin(self):
+        self.driver.find_element_by_xpath(".//a[@class='firstLevelMenu']").click()
+        drop_down = Select(self.driver.find_element_by_id("searchSystemUser_userType"))
+        drop_down.select_by_value("2")
+        self.driver.find_element_by_xpath(".//input[@value='Search']").click()
+        assert self.driver.find_element_by_xpath(".//*[text()='Aaliyah.Haq']")
