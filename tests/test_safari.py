@@ -1,16 +1,11 @@
-from telnetlib import EC
-
 import pytest
-from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.ui import WebDriverWait
+
 import test_data
 
 
-@pytest.mark.usefixtures("setup2")
+@pytest.mark.usefixtures("setup_Safari")
 class TestClass:
     def test_navigation(self):
         print(self.driver.title)

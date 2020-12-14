@@ -1,16 +1,11 @@
-from telnetlib import EC
-
 import pytest
-from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.ui import WebDriverWait
+
 import test_data
 
 
-@pytest.mark.usefixtures("setup")
+@pytest.mark.usefixtures("setup_Chrome")
 class TestClass:
     def test_navigation(self):
         print(self.driver.title)
@@ -39,3 +34,11 @@ class TestClass:
         drop_down.select_by_value("2")
         self.driver.find_element_by_xpath(".//input[@value='Search']").click()
         assert self.driver.find_element_by_xpath(".//*[text()='Aaliyah.Haq']")
+
+    def test_input_text(self):
+        self.driver.find_element_by_xpath(".//*[text()='Directory']").click()
+        self.driver.find_element_by_xpath(".//input[@name='searchDirectory[emp_name][empName]']")\
+            .send_keys(test_data.it_manager_name)
+        self.driver.find_element_by_xpath(".//input[@name='_search']").click()
+        assert self.driver.find_element_by_xpath(".//*[text()='Cassidy Hope']").is_displayed()
+
